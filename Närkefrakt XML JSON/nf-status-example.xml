@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<TrackingEvent>
+	<Header>
+		<MessageId>20260701133000000000</MessageId>
+		<MessageTimestamp>2026-07-01T13:30:00+02:00</MessageTimestamp>
+		<MessageSource>Närkefrakt TMS</MessageSource>
+	</Header>
+	<EventType>LOADED_AT_CONSIGNOR</EventType>
+	<!--Timestamps are made in ISO 8601-->
+	<!--EventTimestamp is the event, in this case the delivery, actually happened. These can be different for a number of reasons, for example bad connectivity from the drivers handheld device-->
+	<EventTimestamp>2026-07-01T13:15:00+02:00</EventTimestamp>
+	<EventLocation>
+		<Name>Oskarshamn Nuclear Power Plant</Name>
+		<StreetName>Simpevarp 200</StreetName>
+		<StreetNumber/>
+		<PostCode>57283</PostCode>
+		<City>Oskarshamn</City>
+		<Latitude>57.416722</Latitude>
+		<Longitude>16.673153</Longitude>
+	</EventLocation>
+	<References>
+	<Reference type="ConsignmentNumber">8884904567</Reference>
+	<Reference type="OrderNumber">14523697</Reference>
+	</References>
+</TrackingEvent>

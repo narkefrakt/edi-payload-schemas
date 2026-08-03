@@ -1,0 +1,139 @@
+{
+  "header": {
+    "messageId": "20260630090000000000",
+    "messageTimestamp": "2026-06-30T09:00:00+02:00",
+    "messageSource": "Example Customer ERP"
+  },
+  "orders": [
+    {
+      "references": [
+        {
+          "type": "ConsignmentNumber",
+          "value": "8884904567"
+        },
+        {
+          "type": "ConsignorReference",
+          "value": "8912374"
+        },
+        {
+          "type": "ConsigneeReference",
+          "value": "74185"
+        },
+        {
+          "type": "OrderNumber",
+          "value": "14523697"
+        },
+        {
+          "value": "08 User"
+        }
+      ],
+      "freeTexts": [
+        {
+          "type": "DriverInstruction",
+          "value": "Place the pallet next to the main entrance"
+        },
+        {
+          "type": "DispatchInstruction",
+          "value": "Needs to be delivered by a smaller truck due to gravel road"
+        },
+        {
+          "value": "1 pallet to Närkefrakt IT Dept, call for delivery +4619206300"
+        }
+      ],
+      "additionalServices": [
+        {
+          "code": "TAIL_LIFT"
+        },
+        {
+          "code": "DELIVERY_NOTIFICATION",
+          "contact": {
+            "name": "User Usersson",
+            "contactInformation": [
+              {
+                "type": "Phone",
+                "value": "+46701234567"
+              }
+            ]
+          }
+        },
+        {
+          "code": "TIME_SLOT_TRANSPORT",
+          "timeSpecification": {
+            "deliverAfter": "2026-07-02T08:00:00+02:00",
+            "deliverBefore": "12:00"
+          }
+        }
+      ],
+      "stops": [
+        {
+          "type": "Consignor",
+          "name": "Oskarshamn Nuclear Power Plant",
+          "street": "Simpevarp",
+          "streetNumber": "200",
+          "postCode": "57283",
+          "city": "Oskarshamn",
+          "country": "Sweden",
+          "contactInformation": [
+            {
+              "type": "Name",
+              "value": "User Usersson"
+            },
+            {
+              "type": "Phone",
+              "value": "019206300"
+            }
+          ]
+        },
+        {
+          "type": "Consignee",
+          "name": "Närkefrakt",
+          "street": "Pilängsgatan 15",
+          "postCode": "70227",
+          "city": "Örebro",
+          "country": "Sweden",
+          "contactInformation": [
+            {
+              "value": "User Usersson"
+            }
+          ]
+        }
+      ],
+      "goodsInformation": [
+        {
+          "goodsSpecification": "Electrical gear",
+          "packageType": "EURO PALLET",
+          "quantity": 1,
+          "stackable": false,
+          "weight": {
+            "value": 70,
+            "unit": "KG"
+          },
+          "length": {
+            "value": 1200,
+            "unit": "mm"
+          },
+          "width": {
+            "value": 800,
+            "unit": "mm"
+          },
+          "height": {
+            "value": 67,
+            "unit": "cm"
+          },
+          "goodsRequirements": [
+            {
+              "type": "CargoType",
+              "value": "Electronics"
+            },
+            {
+              "TemperatureRequirements": {
+                "MinimumTemperature": "5",
+                "MaximumTemperature": "35"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

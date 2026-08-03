@@ -1,0 +1,43 @@
+{
+  "header": {
+    "messageId": "20260702123000000000",
+    "messageTimestamp": "2026-07-02T12:30:00+02:00",
+    "messageSource": "Närkefrakt TMS"
+  },
+  "eventType": "DELIVERED_TO_CONSIGNEE",
+  "eventTimestamp": "2026-07-02T11:15:00+02:00",
+  "eventLocation": {
+    "name": "Närkefrakt",
+    "streetName": "Pilängsgatan 15",
+    "streetNumber": "15",
+    "postCode": "70227",
+    "city": "Örebro",
+    "latitude": 59.243930,
+    "longitude": 15.102094
+  },
+  "references": [
+    {
+      "type": "ConsignmentNumber",
+      "value": "8884904567"
+    },
+    {
+      "type": "OrderNumber",
+      "value": "14523697"
+    }
+  ],
+  "deliverySignature": "User Usersson",
+  "deliveryGraphicSignature": "BASE64_ENCODED_FILE",
+  "attachments": [
+    {
+      "data": "BASE64_ENCODED_FILE"
+    },
+    {
+      "comment": "Picture of delivered goods",
+      "data": "BASE64_ENCODED_FILE"
+    },
+    {
+      "type": "Goods Damage",
+      "data": "BASE64_ENCODED_FILE"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<DeliverEvent>
+	<Header>
+		<MessageId>20260702123000000000</MessageId>
+		<MessageTimestamp>2026-07-02T12:30:00+02:00</MessageTimestamp>
+		<MessageSource>Närkefrakt TMS</MessageSource>
+	</Header>
+	<EventType>DELIVERED_TO_CONSIGNEE</EventType>
+	<!--Timestamps are made in ISO 8601-->
+	<!--EventTimestamp is the event, in this case the delivery, actually happened. These can be different for a number of reasons, for example bad connectivity from the drivers handheld device-->
+	<EventTimestamp>2026-07-02T11:15:00+02:00</EventTimestamp>
+	<EventLocation>
+		<Name>Närkefrakt</Name>
+	<!--StreetNumber can be included in streetname if it's not seperated in your data-->
+		<StreetName>Pilängsgatan 15</StreetName>
+		<StreetNumber>15</StreetNumber>
+		<PostCode>70227</PostCode>
+		<City>Örebro</City>
+		<Latitude>59.243930</Latitude>
+		<Longitude>15.102094</Longitude>
+	</EventLocation>
+	<References>
+	<!--An attribute can be used to describe what type of reference, for example type="ConsignmentNumber" or type="CustomerReference" - The attribute can be called whatever-->
+	<Reference type="ConsignmentNumber">8884904567</Reference>
+	<Reference type="OrderNumber">14523697</Reference>
+	</References>
+	<DeliverySignature>User Usersson</DeliverySignature>
+	<DeliveryGraphicSignature>BASE64_ENCODED_FILE</DeliveryGraphicSignature>
+	<Attachments>
+	<!--Attachment tag can be repeated if you're sending more than 1 file-->
+	<Attachment>BASE64_ENCODED_FILE</Attachment>
+	<!--Optionally, attachment can have an attribute (of any name) to specify what the attachment is-->
+	<Attachment comment="Picture of delivered goods">BASE64_ENCODED_FILE</Attachment>
+	<Attachment type="Goods Damage">BASE64_ENCODED_FILE</Attachment>
+	</Attachments>
+</DeliverEvent>

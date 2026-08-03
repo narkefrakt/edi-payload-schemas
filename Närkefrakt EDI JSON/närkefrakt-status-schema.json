@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Närkefrakt Tracking Event Schema",
+  "description": "Schema for tracking status messages. Optional fields with no value should be OMITTED from the document rather than emitted as null or empty string. Fields listed under 'required' must always be present.\n\nNote on DELIVERED_TO_CONSIGNEE: This event type may appear here as a tracking status. This is distinct from the Närkefrakt Delivery Event Schema, which carries proof-of-delivery data (signature, graphic signature, attachments). A delivery typically generates both: a tracking status (this schema) and a separate delivery event message (proof-of-delivery schema).",
+  "type": "object",
+  "properties": {
+    "header": {
+      "$ref": "#/definitions/Header"
+    },
+    "eventType": {
+      "type": "string",
+      "description": "Type of tracking event:\n- GOODS_PREPARED: Goods are prepared and ready for pickup at the consignor. Pre-transport status, sent when the order reached Närkefrakt in advance and the consignor has finished picking and labelling the shipment. Used rarely.\n- LOADED_AT_CONSIGNOR: Goods loaded onto a vehicle at the consignor.\n- UNLOADED_AT_TERMINAL: Goods unloaded at a terminal.\n- LOADED_AT_TERMINAL: Goods loaded onto a vehicle at a terminal.\n- LOADED: Goods loaded onto a vehicle, loading point unspecified. Used when a subcontractor reports a load without stating whether it happened at a consignor, a terminal or elsewhere. May occur at any point in the chain.\n- DELIVERED_TO_CONSIGNEE: Goods delivered to the consignee.",
+      "enum": [
+        "GOODS_PREPARED",
+        "LOADED_AT_CONSIGNOR",
+        "UNLOADED_AT_TERMINAL",
+        "LOADED_AT_TERMINAL",
+        "LOADED",
+        "DELIVERED_TO_CONSIGNEE"
+      ]
+    },
+    "eventTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the event actually happened (ISO 8601 format). May differ from messageTimestamp due to connectivity issues"
+    },
+    "eventLocation": {
+      "$ref": "#/definitions/EventLocation"
+    },
+    "references": {
+      "type": "array",
+      "description": "Multiple references can be included",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of reference, e.g., ConsignmentNumber, OrderNumber, CustomerReference"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["value"]
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "description": "Base64 encoded files can be attached",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Optional type or description of the attachment"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Optional comment about the attachment"
+          },
+          "data": {
+            "type": "string",
+            "description": "Base64 encoded file data"
+          }
+        },
+        "required": ["data"]
+      }
+    }
+  },
+  "required": ["header", "eventType", "eventTimestamp"],
+  "definitions": {
+    "Header": {
+      "type": "object",
+      "description": "Message envelope. These fields describe the message itself rather than the freight it carries, and are identical across all Närkefrakt message types.",
+      "properties": {
+        "messageId": {
+          "type": "string",
+          "description": "Optional unique identifier for this message. Any string that uniquely identifies it — for example a file name, a timestamp, or a counter. Lets the receiver detect duplicates when a message is retried or redelivered."
+        },
+        "messageTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the message was created (ISO 8601 format). Required: it is what lets the receiver tell a delayed message from a current one, so a message that omits it cannot be assessed for staleness. May differ from eventTimestamp due to connectivity issues."
+        },
+        "messageSource": {
+          "type": "string",
+          "description": "Which system, customer or integration the message originates from — for example a TMS or ERP name, a customer identifier, or the name of the integration that produced it. Optional but preferred: when several senders feed the same endpoint, this is what makes a message traceable back to its origin."
+        }
+      },
+      "required": ["messageTimestamp"]
+    },
+    "EventLocation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "streetName": {
+          "type": "string",
+          "description": "Street name (can include street number if not separated)"
+        },
+        "streetNumber": {
+          "type": "string"
+        },
+        "postCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "Latitude in decimal degrees, WGS84"
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "Longitude in decimal degrees, WGS84"
+        }
+      }
+    }
+  }
+}

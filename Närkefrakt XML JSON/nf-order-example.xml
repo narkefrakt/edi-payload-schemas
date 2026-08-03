@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Orders>
+	<Header>
+		<MessageId>20260630090000000000</MessageId>
+		<MessageTimestamp>2026-06-30T09:00:00+02:00</MessageTimestamp>
+		<MessageSource>Example Customer ERP</MessageSource>
+	</Header>
+	<Order>
+		<References>
+			<Reference type="ConsignmentNumber">8884904567</Reference>
+			<Reference type="ConsignorReference">8912374</Reference>
+			<Reference type="ConsigneeReference">74185</Reference>
+			<Reference type="OrderNumber">14523697</Reference>
+			<Reference>08 User</Reference>
+		</References>
+		<FreeTexts>
+			<FreeText type="DriverInstruction">Place the pallet next to the main entrance</FreeText>
+			<FreeText type="DispatchInstruction">Needs to be delivered by a smaller truck due to gravel road</FreeText>
+			<FreeText>1 pallet to Närkefrakt IT Dept, call for delivery +4619206300</FreeText>
+		</FreeTexts>
+		<AdditionalServices>
+			<AdditionalService code="TAIL_LIFT"/>
+			<AdditionalService code="DELIVERY_NOTIFICATION">
+				<Contact>
+					<Name>User Usersson</Name>
+					<ContactInformation>
+						<ContactInfo type="Phone">+46701234567</ContactInfo>
+					</ContactInformation>
+				</Contact>
+			</AdditionalService>
+			<AdditionalService code="TIME_SLOT_TRANSPORT">
+				<TimeSpecification>
+					<DeliverAfter>2026-07-02T08:00:00+02:00</DeliverAfter>
+					<DeliverBefore>12:00</DeliverBefore>
+				</TimeSpecification>
+			</AdditionalService>
+		</AdditionalServices>
+		<Stops>
+			<Stop type="Consignor">
+				<Name>Oskarshamn Nuclear Power Plant</Name>
+				<Street>Simpevarp</Street>
+				<StreetNumber>200</StreetNumber>
+				<PostCode>57283</PostCode>
+				<City>Oskarshamn</City>
+				<Country>Sweden</Country>
+				<ContactInformation>
+					<ContactInfo type="Name">User Usersson</ContactInfo>
+					<ContactInfo type="Phone">019206300</ContactInfo>
+					<ContactInfo type="Email"/>
+				</ContactInformation>
+				<StopInformation/>
+			</Stop>
+			<Stop type="Consignee">
+				<Name>Närkefrakt</Name>
+				<Street>Pilängsgatan 15</Street>
+				<StreetNumber/>
+				<PostCode>70227</PostCode>
+				<City>Örebro</City>
+				<Country>Sweden</Country>
+				<ContactInformation>
+					<ContactInfo>User Usersson</ContactInfo>
+				</ContactInformation>
+				<StopInformation/>
+			</Stop>
+		</Stops>
+		<GoodsInformation>
+			<GoodsRow>
+				<GoodsSpecification>Electrical gear</GoodsSpecification>
+				<PackageType>EURO PALLET</PackageType>
+				<Quantity>1</Quantity>
+				<Weight unit="KG">70</Weight>
+				<Volume/>
+				<LoadMeters/>
+				<PalletPlaces/>
+				<Stackable>false</Stackable>
+				<Length unit="mm">1200</Length>
+				<Width unit="mm">800</Width>
+				<Height unit="cm">67</Height>
+				<PackageNumber/>
+				<DangerousGoods>
+					<SubstanceType/>
+					<WasteCode/>
+					<UNNumber/>
+					<DangerousGoodsClass/>
+					<DangerousGoodsSpecification/>
+					<DangerousGoodsSort/>
+					<DangerousGoodsAmount/>
+					<DangerousGoodsType/>
+					<DangerousGoodsQuantity/>
+				</DangerousGoods>
+				<GoodsRequirements type="CargoType">Electronics</GoodsRequirements>
+				<GoodsRequirements type="TemperatureRequirements">
+					<MinimumTemperature>5</MinimumTemperature>
+					<MaximumTemperature>35</MaximumTemperature>
+				</GoodsRequirements>
+			</GoodsRow>
+		</GoodsInformation>
+	</Order>
+</Orders>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<TrackingEvent>
+	<!--The Header describes the message itself rather than the freight it carries. It is identical across all Närkefrakt message types-->
+	<Header>
+	<!--Optional. Any unique string that indicates a unique message. For example a file name, a unique timestamp, or any counter of some sort-->
+		<MessageId></MessageId>
+	<!--Timestamps are made in ISO 8601-->
+	<!--MessageTimestamp is when the message was created. Required - it is what lets us tell a delayed message from a current one-->
+		<MessageTimestamp></MessageTimestamp>
+	<!--Optional but preferred. Which system, customer or integration the message comes from - for example a TMS or ERP name, a customer identifier, or the name of the integration that produced it. When several senders feed the same endpoint this is what makes a message traceable back to its origin-->
+		<MessageSource></MessageSource>
+	</Header>
+<!--
+Description of what the status message is.
+Standard ones that we auto parse are
+GOODS_PREPARED         = Goods are prepared and ready for pickup at the consignor. Pre-transport status, sent when the order reached Närkefrakt in advance and the consignor has finished picking and labelling the shipment. Used rarely.
+LOADED_AT_CONSIGNOR    = Goods loaded onto a vehicle at the consignor.
+UNLOADED_AT_TERMINAL   = Goods unloaded at a terminal.
+LOADED_AT_TERMINAL     = Goods loaded onto a vehicle at a terminal.
+LOADED                 = Goods loaded onto a vehicle, loading point unspecified. Used when a subcontractor reports a load without stating whether it happened at a consignor, a terminal or elsewhere. May occur at any point in the chain.
+DELIVERED_TO_CONSIGNEE = Goods delivered to the consignee.
+-->
+	<EventType></EventType>
+	<!--Timestamps are made in ISO 8601-->
+	<!--EventTimestamp is the event, in this case the delivery, actually happened. These can be different for a number of reasons, for example bad connectivity from the drivers handheld device-->
+	<EventTimestamp></EventTimestamp>
+	<EventLocation>
+		<Name/>
+	<!--StreetNumber can be included in streetname if it's not seperated in your data-->
+		<StreetName/>
+		<StreetNumber/>
+		<PostCode/>
+		<City/>
+		<Latitude></Latitude>
+		<Longitude></Longitude>
+	</EventLocation>
+	<References>
+	<!--An attribute can be used to describe what type of reference, for example type="ConsignmentNumber" or type="CustomerReference" - The attribute can be called whatever-->
+	<Reference></Reference>
+	<Reference></Reference>
+	</References>
+	<Attachments>
+	<!--Attachment tag can be repeated if you're sending more than 1 file-->
+	<!--Optionally, attachment can have an attribute (of any name) to specify what the attachment is-->
+	<Attachment>BASE64_ENCODED_FILE</Attachment>
+	</Attachments>
+</TrackingEvent>

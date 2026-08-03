@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Orders>
+	<!--The Header describes the message itself rather than the freight it carries. It is identical across all Närkefrakt message types-->
+	<Header>
+	<!--Optional. Any unique string that indicates a unique message. For example a file name, a unique timestamp, or any counter of some sort-->
+		<MessageId/>
+	<!--Timestamps are made in ISO 8601-->
+	<!--MessageTimestamp is when the message was created. Required - it is what lets us tell a delayed message from a current one-->
+		<MessageTimestamp/>
+	<!--Optional but preferred. Which system, customer or integration the message comes from - for example a TMS or ERP name, a customer identifier, or the name of the integration that produced it. When several senders feed the same endpoint this is what makes a message traceable back to its origin-->
+		<MessageSource/>
+	</Header>
+	<Order>
+		<References>
+	<!--An attribute can be used to describe what type of reference, for example type="ConsignmentNumber" or type="CustomerReference" - The attribute can be called whatever-->
+	<!--Reference tags can be repeated for multiple reference-->
+			<Reference/>
+			<Reference/>
+			<Reference/>
+			<Reference/>
+		</References>
+		<FreeTexts>
+	<!--An attribute can be used to describe what type of freetext, for example type="DriverInstruction" or type="DispatchInstruction" - The attribute can be called whatever-->
+	<!--FreeText tags can be repeated for multiple reference-->
+			<FreeText/>
+			<FreeText/>
+			<FreeText/>
+			<FreeText/>
+		</FreeTexts>
+		<AdditionalServices>
+		<!--The code attribute identifies the requested service from the fixed list of codes below.
+		For most services the element value is optional and can carry extra free-text detail.-->
+		<!--Available service codes:
+		ADR_GOODS                        = ADR (Dangerous Goods)
+		BOOK_DELIVERY                    = Delivery Booking
+		TAIL_LIFT                        = Tail Lift
+		DELIVERY_NOTIFICATION            = Delivery Notification
+		DELIVERY_NOTIFICATION_INDIVIDUAL = Delivery Notification - Individual
+		EARLY_DELIVERY                   = Delivery Before 12.00
+		LATE_DELIVERY                    = Delivery After 12.00
+		TIME_SLOT_TRANSPORT              = Time-Slot Loading and Unloading
+		PACKAGE_LABELING                 = Package Labeling
+		WAYBILL_LABELING                 = Waybill Labeling-->
+		<!--For BOOK_DELIVERY, DELIVERY_NOTIFICATION and DELIVERY_NOTIFICATION_INDIVIDUAL a Contact can be supplied, holding a Name and ContactInformation (same shape as a Stop's contact info).-->
+		<!--For TIME_SLOT_TRANSPORT a TimeSpecification can be supplied, holding DeliverAfter and DeliverBefore. Each accepts either a simple time HH:MM (e.g. 12:00) or a full ISO 8601 date-time (e.g. 2026-07-02T08:00:00+02:00).-->
+		<!--AdditionalService tags can be repeated for multiple services-->
+			<AdditionalService code=""/>
+			<AdditionalService code="DELIVERY_NOTIFICATION">
+				<Contact>
+					<Name/>
+					<ContactInformation>
+					<!--An attribute can be used to describe what type of ContactInfo, for example type="Phone" or type="Email"-->
+						<ContactInfo/>
+						<ContactInfo/>
+					</ContactInformation>
+				</Contact>
+			</AdditionalService>
+			<AdditionalService code="TIME_SLOT_TRANSPORT">
+				<TimeSpecification>
+					<DeliverAfter/>
+					<DeliverBefore/>
+				</TimeSpecification>
+			</AdditionalService>
+		</AdditionalServices>
+		<Stops>
+			<Stop type="Consignor">
+				<Name/>
+				<!--StreetNumber can be included in streetname if it's not seperated in your data-->
+				<Street/>
+				<StreetNumber/>
+				<PostCode/>
+				<City/>
+				<Country/>
+				<ContactInformation>
+				<!--An attribute can be used to describe what type of ContactInfo, for example type="Phone" or type="Email" - The attribute can be called whatever-->
+				<!--ContactInfo tags can be repeated-->
+					<ContactInfo/>
+					<ContactInfo/>
+				</ContactInformation>
+				<StopInformation/>
+			</Stop>
+			<Stop type="Consignee">
+				<Name/>
+				<Street/>
+				<StreetNumber/>
+				<PostCode/>
+				<City/>
+				<Country/>
+				<ContactInformation>
+				<!--An attribute can be used to describe what type of ContactInfo, for example type="Phone" or type="Email" - The attribute can be called whatever-->
+				<!--ContactInfo tags can be repeated-->
+					<ContactInfo/>
+					<ContactInfo/>
+				</ContactInformation>
+				<StopInformation/>
+			</Stop>
+		</Stops>
+		<GoodsInformation>
+			<GoodsRow>
+				<GoodsSpecification/>
+				<PackageType/>
+				<Quantity/>
+				<!--An attribute can be added to specify the unit of the measure, for example unit="KG" - The attribute can be called whatever--> 
+				<Weight/>
+				<!--An attribute can be added to specify the unit of the measure, for example unit="M3" - The attribute can be called whatever--> 
+				<Volume/>
+				<LoadMeters/>
+				<PalletPlaces/>
+				<!--Stackable states whether other goods may be stacked on top of this row. It is optional and defaults to false - leave it out or send false unless the goods are explicitly cleared for stacking. Accepts true/false-->
+				<Stackable/>
+				<!--An attribute can be added to specify the unit of the measure, for example unit="CM" - The attribute can be called whatever--> 
+				<Length/>
+				<!--An attribute can be added to specify the unit of the measure, for example unit="CM" - The attribute can be called whatever--> 
+				<Width/>
+				<!--An attribute can be added to specify the unit of the measure, for example unit="CM" - The attribute can be called whatever--> 
+				<Height/>
+				<!--PackageNumber can be repeated if you have multiple packages for one goods row.--> 
+				<PackageNumber/>
+				<DangerousGoods>
+					<SubstanceType/>
+					<WasteCode/>
+					<UNNumber/>
+					<DangerousGoodsClass/>
+					<DangerousGoodsSpecification/>
+					<DangerousGoodsSort/>
+					<DangerousGoodsAmount/>
+					<DangerousGoodsType/>
+					<DangerousGoodsQuantity/>
+				</DangerousGoods>
+				<!--GoodsRequirements are completely optional and can be left out entirely. Use them to add types of data that don't fit anywhere else.
+				For a simple requirement an attribute describes what it is, for example type="CargoType" with the value "Frozen" as element text - The attribute can be called whatever.
+				A requirement that needs several fields instead carries child elements. TemperatureRequirements is the one currently defined: give MinimumTemperature and/or MaximumTemperature in degrees Celsius. Both bounds are individually optional but at least one must be present - frozen goods typically send only MaximumTemperature (e.g. -18) and leave the minimum open-ended, chilled goods usually send both.
+				GoodsRequirements tags can be repeated, and the two forms can be mixed-->
+				<GoodsRequirements type="CargoType"/>
+				<GoodsRequirements type="TemperatureRequirements">
+					<MinimumTemperature/>
+					<MaximumTemperature/>
+				</GoodsRequirements>
+			</GoodsRow>
+		</GoodsInformation>
+	</Order>
+</Orders>

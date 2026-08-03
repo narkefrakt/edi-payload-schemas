@@ -1,0 +1,27 @@
+{
+  "header": {
+    "messageId": "20260701133000000000",
+    "messageTimestamp": "2026-07-01T13:30:00+02:00",
+    "messageSource": "Närkefrakt TMS"
+  },
+  "eventType": "LOADED_AT_CONSIGNOR",
+  "eventTimestamp": "2026-07-01T13:15:00+02:00",
+  "eventLocation": {
+    "name": "Oskarshamn Nuclear Power Plant",
+    "streetName": "Simpevarp 200",
+    "postCode": "57283",
+    "city": "Oskarshamn",
+    "latitude": 57.416722,
+    "longitude": 16.673153
+  },
+  "references": [
+    {
+      "type": "ConsignmentNumber",
+      "value": "8884904567"
+    },
+    {
+      "type": "OrderNumber",
+      "value": "14523697"
+    }
+  ]
+}

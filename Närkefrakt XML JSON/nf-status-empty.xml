@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<TrackingEvent>
+	<Header>
+        <MessageId></MessageId>
+        <MessageTimestamp></MessageTimestamp>
+        <MessageSource></MessageSource>
+    </Header>
+    <EventType></EventType>
+    <EventTimestamp></EventTimestamp>
+    <EventLocation>
+        <Name></Name>
+        <StreetName></StreetName>
+        <StreetNumber></StreetNumber>
+        <PostCode></PostCode>
+        <City></City>
+        <Latitude></Latitude>
+        <Longitude></Longitude>
+    </EventLocation>
+    <References>
+        <Reference></Reference>
+        <Reference></Reference>
+    </References>
+    <Attachments>
+        <Attachment></Attachment>
+    </Attachments>
+</TrackingEvent>

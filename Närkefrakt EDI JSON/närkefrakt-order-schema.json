@@ -1,0 +1,402 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Närkefrakt Order Schema",
+  "description": "Schema for freight order messages sent to Närkefrakt. Optional fields with no value should be OMITTED from the document rather than emitted as null. Fields listed under 'required' must always be present.",
+  "type": "object",
+  "properties": {
+    "header": {
+      "$ref": "#/definitions/Header"
+    },
+    "orders": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Order"
+      }
+    }
+  },
+  "required": ["header", "orders"],
+  "definitions": {
+    "Header": {
+      "type": "object",
+      "description": "Message envelope. These fields describe the message itself rather than the freight it carries, and are identical across all Närkefrakt message types.",
+      "properties": {
+        "messageId": {
+          "type": "string",
+          "description": "Optional unique identifier for this message. Any string that uniquely identifies it — for example a file name, a timestamp, or a counter. Lets the receiver detect duplicates when a message is retried or redelivered."
+        },
+        "messageTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the message was created (ISO 8601 format). Required: it is what lets the receiver tell a delayed message from a current one, so a message that omits it cannot be assessed for staleness."
+        },
+        "messageSource": {
+          "type": "string",
+          "description": "Which system, customer or integration the message originates from — for example a TMS or ERP name, a customer identifier, or the name of the integration that produced it. Optional but preferred: when several senders feed the same endpoint, this is what makes a message traceable back to its origin."
+        }
+      },
+      "required": ["messageTimestamp"]
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "references": {
+          "type": "array",
+          "description": "Multiple references can be included",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of reference, e.g., ConsignmentNumber, CustomerReference, OrderNumber"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": ["value"]
+          }
+        },
+        "freeTexts": {
+          "type": "array",
+          "description": "Multiple free text fields can be included",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of free text, e.g., DriverInstruction, DispatchInstruction"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": ["value"]
+          }
+        },
+        "additionalServices": {
+          "type": "array",
+          "description": "Optional additional services requested for the order. Omit the whole field when no services are requested rather than sending an empty array.",
+          "items": {
+            "$ref": "#/definitions/AdditionalService"
+          }
+        },
+        "stops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Stop"
+          },
+          "minItems": 1
+        },
+        "goodsInformation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GoodsRow"
+          }
+        }
+      },
+      "required": ["stops"]
+    },
+    "AdditionalService": {
+      "type": "object",
+      "description": "An additional service requested on the order. 'code' identifies the service from the fixed list below. Some services carry structured detail: 'contact' applies to BOOK_DELIVERY, DELIVERY_NOTIFICATION and DELIVERY_NOTIFICATION_INDIVIDUAL; 'timeSpecification' applies to TIME_SLOT_TRANSPORT. 'value' is an optional free-text fallback for any other detail.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Service code identifying the requested service:\n- ADR_GOODS: ADR (Dangerous Goods)\n- BOOK_DELIVERY: Delivery Booking\n- TAIL_LIFT: Tail Lift\n- DELIVERY_NOTIFICATION: Delivery Notification\n- DELIVERY_NOTIFICATION_INDIVIDUAL: Delivery Notification – Individual\n- EARLY_DELIVERY: Delivery Before 12.00\n- LATE_DELIVERY: Delivery After 12.00\n- TIME_SLOT_TRANSPORT: Time-Slot Loading and Unloading\n- PACKAGE_LABELING: Package Labeling\n- WAYBILL_LABELING: Waybill Labeling",
+          "enum": [
+            "ADR_GOODS",
+            "BOOK_DELIVERY",
+            "TAIL_LIFT",
+            "DELIVERY_NOTIFICATION",
+            "DELIVERY_NOTIFICATION_INDIVIDUAL",
+            "EARLY_DELIVERY",
+            "LATE_DELIVERY",
+            "TIME_SLOT_TRANSPORT",
+            "PACKAGE_LABELING",
+            "WAYBILL_LABELING"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "description": "Optional free-text detail for services that have no structured field of their own."
+        },
+        "contact": {
+          "type": "object",
+          "description": "Contact to use for the service. Applies to BOOK_DELIVERY, DELIVERY_NOTIFICATION and DELIVERY_NOTIFICATION_INDIVIDUAL.",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "contactInformation": {
+              "type": "array",
+              "description": "Multiple contact info entries can be included",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "Type of contact info, e.g., Phone, Email, Name"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": ["value"]
+              }
+            }
+          }
+        },
+        "timeSpecification": {
+          "type": "object",
+          "description": "Requested delivery/transport time window. Applies to TIME_SLOT_TRANSPORT.",
+          "properties": {
+            "deliverAfter": {
+              "type": "string",
+              "description": "Earliest delivery time. Either a simple time of day as HH:MM (e.g. 08:00) or a full ISO 8601 date-time (e.g. 2026-07-02T08:00:00+02:00)."
+            },
+            "deliverBefore": {
+              "type": "string",
+              "description": "Latest delivery time. Either a simple time of day as HH:MM (e.g. 12:00) or a full ISO 8601 date-time (e.g. 2026-07-02T12:00:00+02:00)."
+            }
+          }
+        }
+      },
+      "required": ["code"]
+    },
+    "Stop": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Consignor", "Consignee"],
+          "description": "Type of stop"
+        },
+        "name": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string",
+          "description": "Street name (can include street number if not separated)"
+        },
+        "streetNumber": {
+          "type": "string"
+        },
+        "postCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "contactInformation": {
+          "type": "array",
+          "description": "Multiple contact info entries can be included",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of contact info, e.g., Phone, Email, Name"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": ["value"]
+          }
+        },
+        "stopInformation": {
+          "type": "string"
+        }
+      },
+      "required": ["type"]
+    },
+    "GoodsRow": {
+      "type": "object",
+      "description": "A row of goods. All measurement fields (weight, volume, length, width, height, loadMeters, palletPlaces) are optional — omit the entire field (or its sub-properties) when no value is known. Do not send null. 'stackable' is likewise optional and defaults to false when absent.",
+      "properties": {
+        "goodsSpecification": {
+          "type": "string"
+        },
+        "packageType": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "weight": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "description": "Unit of measure, e.g., KG"
+            }
+          }
+        },
+        "volume": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "description": "Unit of measure, e.g., M3"
+            }
+          }
+        },
+        "loadMeters": {
+          "type": "number"
+        },
+        "palletPlaces": {
+          "type": "number"
+        },
+        "stackable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether other goods may be stacked on top of this row. Optional; when omitted the row is treated as NOT stackable. Send true only when the goods are explicitly cleared for stacking. Note that 'default' is documentation only, and which is Närkefrakts default value."
+        },
+        "length": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "description": "Unit of measure, e.g., CM, MM"
+            }
+          }
+        },
+        "width": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "description": "Unit of measure, e.g., CM, MM"
+            }
+          }
+        },
+        "height": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "description": "Unit of measure, e.g., CM, MM"
+            }
+          }
+        },
+        "packageNumbers": {
+          "type": "array",
+          "description": "Multiple package numbers can be included",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dangerousGoods": {
+          "$ref": "#/definitions/DangerousGoods"
+        },
+        "goodsRequirements": {
+          "type": "array",
+          "description": "Optional requirements that don't fit elsewhere. The whole field may be omitted when there are no requirements — do not send an empty array.",
+          "items": {
+            "$ref": "#/definitions/GoodsRequirement"
+          }
+        }
+      }
+    },
+    "GoodsRequirement": {
+      "description": "A single goods requirement, in one of two forms:\n1. A flat {type, value} pair for simple free-text requirements, e.g. {\"type\": \"CargoType\", \"value\": \"Frozen\"}.\n2. A structured requirement, keyed by the requirement name, for requirements that carry several fields — currently TemperatureRequirements.\nThe two forms may be mixed freely within the same goodsRequirements array.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/GoodsRequirementText"
+        },
+        {
+          "$ref": "#/definitions/GoodsRequirementTemperature"
+        }
+      ]
+    },
+    "GoodsRequirementText": {
+      "type": "object",
+      "description": "Free-text requirement. 'type' names the requirement, 'value' carries it.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of requirement, e.g., CargoType"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"],
+      "additionalProperties": false
+    },
+    "GoodsRequirementTemperature": {
+      "type": "object",
+      "description": "Temperature-controlled transport requirement, expressed in degrees Celsius. Both bounds are individually optional, but at least one must be present — an empty TemperatureRequirements object carries no information and is rejected. Send only the bound that matters: frozen goods typically specify MaximumTemperature (e.g. \"-18\") and leave the minimum open-ended, while chilled goods usually specify both.",
+      "properties": {
+        "TemperatureRequirements": {
+          "type": "object",
+          "properties": {
+            "MinimumTemperature": {
+              "type": "string",
+              "description": "Lowest acceptable temperature in degrees Celsius, e.g. \"4\"."
+            },
+            "MaximumTemperature": {
+              "type": "string",
+              "description": "Highest acceptable temperature in degrees Celsius, e.g. \"8\"."
+            }
+          },
+          "minProperties": 1,
+          "additionalProperties": false
+        }
+      },
+      "required": ["TemperatureRequirements"],
+      "additionalProperties": false
+    },
+    "DangerousGoods": {
+      "type": "object",
+      "description": "Only include this object when the goods are actually classified as dangerous. Omit the whole object otherwise rather than sending it with empty strings.",
+      "properties": {
+        "substanceType": {
+          "type": "string"
+        },
+        "wasteCode": {
+          "type": "string"
+        },
+        "unNumber": {
+          "type": "string"
+        },
+        "dangerousGoodsClass": {
+          "type": "string"
+        },
+        "dangerousGoodsSpecification": {
+          "type": "string"
+        },
+        "dangerousGoodsSort": {
+          "type": "string"
+        },
+        "dangerousGoodsAmount": {
+          "type": "string"
+        },
+        "dangerousGoodsType": {
+          "type": "string"
+        },
+        "dangerousGoodsQuantity": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
