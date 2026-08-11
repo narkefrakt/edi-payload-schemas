@@ -40,9 +40,18 @@
           "value": "1 pallet to Närkefrakt IT Dept, call for delivery +4619206300"
         }
       ],
+      "planning": {
+        "earliestPickupTime": "2026-07-01T08:00:00+02:00",
+        "latestPickupTime": "2026-07-01T16:00:00+02:00",
+        "earliestDeliveryTime": "2026-07-02T08:00:00+02:00",
+        "latestDeliveryTime": "2026-07-02T12:00:00+02:00"
+      },
       "additionalServices": [
         {
           "code": "TAIL_LIFT"
+        },
+        {
+          "code": "ADR_GOODS"
         },
         {
           "code": "DELIVERY_NOTIFICATION",
@@ -120,6 +129,9 @@
             "value": 67,
             "unit": "cm"
           },
+          "packageNumbers": [
+            "00064298302462022244"
+          ],
           "goodsRequirements": [
             {
               "type": "CargoType",
@@ -132,6 +144,46 @@
               }
             }
           ]
+        },
+        {
+          "goodsSpecification": "Acetone in steel drums",
+          "packageType": "EURO PALLET",
+          "quantity": 2,
+          "stackable": false,
+          "weight": {
+            "value": 240,
+            "unit": "KG"
+          },
+          "volume": {
+            "value": 1.008,
+            "unit": "M3"
+          },
+          "length": {
+            "value": 1200,
+            "unit": "mm"
+          },
+          "width": {
+            "value": 800,
+            "unit": "mm"
+          },
+          "height": {
+            "value": 105,
+            "unit": "cm"
+          },
+          "dangerousGoods": {
+            "substanceType": "Flammable liquid",
+            "unNumber": "UN1090",
+            "dangerousGoodsClass": "3",
+            "dangerousGoodsSpecification": "ACETONE",
+            "dangerousGoodsSort": "II",
+            "dangerousGoodsAmount": "200 KG",
+            "dangerousGoodsType": "Steel drum",
+            "dangerousGoodsQuantity": "4x50L",
+            "tunnelCode": "D/E",
+            "dangerousPackagingType": "II",
+            "limitedQuantity": false,
+            "environmentPollutant": false
+          }
         }
       ]
     }

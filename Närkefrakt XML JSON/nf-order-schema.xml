@@ -27,6 +27,15 @@
 			<FreeText/>
 			<FreeText/>
 		</FreeTexts>
+		<!--Planning holds the requested pickup and delivery windows. Every element is optional and the whole block can be left out - Närkefrakt's default planning schedule applies to any window that isn't given.
+		Timestamps are made in ISO 8601 with UTC offset, for example 2026-07-01T08:00:00+02:00 - the same format as MessageTimestamp and EventTimestamp.
+		Ordering: within a pair the Earliest must not be later than the Latest, and delivery must not be planned before pickup. Närkefrakt rejects a message that breaks this-->
+		<Planning>
+			<EarliestPickupTime/>
+			<LatestPickupTime/>
+			<EarliestDeliveryTime/>
+			<LatestDeliveryTime/>
+		</Planning>
 		<AdditionalServices>
 		<!--The code attribute identifies the requested service from the fixed list of codes below.
 		For most services the element value is optional and can carry extra free-text detail.-->
@@ -126,6 +135,14 @@
 					<DangerousGoodsAmount/>
 					<DangerousGoodsType/>
 					<DangerousGoodsQuantity/>
+				<!--ADR tunnel restriction code for the substance, for example D/E. Determines which road tunnel categories the consignment may pass through-->
+					<TunnelCode/>
+				<!--ADR packing group as an uppercase Roman numeral - I (high danger), II (medium danger) or III (low danger). No default, leave it out if the packing group is unknown rather than guessing-->
+					<DangerousPackagingType/>
+				<!--true or false. Whether the goods are packed as Limited Quantity (LQ) under ADR chapter 3.4, which exempts them from many ADR carriage requirements. Optional, defaults to false-->
+					<LimitedQuantity/>
+				<!--true or false. Whether the substance is environmentally hazardous / a marine pollutant and must carry the corresponding mark. Optional, defaults to false-->
+					<EnvironmentPollutant/>
 				</DangerousGoods>
 				<!--GoodsRequirements are completely optional and can be left out entirely. Use them to add types of data that don't fit anywhere else.
 				For a simple requirement an attribute describes what it is, for example type="CargoType" with the value "Frozen" as element text - The attribute can be called whatever.

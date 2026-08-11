@@ -73,6 +73,9 @@
             "required": ["value"]
           }
         },
+        "planning": {
+          "$ref": "#/definitions/Planning"
+        },
         "additionalServices": {
           "type": "array",
           "description": "Optional additional services requested for the order. Omit the whole field when no services are requested rather than sending an empty array.",
@@ -95,6 +98,32 @@
         }
       },
       "required": ["stops"]
+    },
+    "Planning": {
+      "type": "object",
+      "description": "Requested pickup and delivery time windows.\n\nEvery field is optional, and the whole object may be omitted — when a field is absent Närkefrakt's default planning schedule applies to it.\n\nOrdering rules: within a pair, the 'earliest' value must not be later than the 'latest'. Across pairs, delivery must not be planned before pickup — earliestDeliveryTime must not precede earliestPickupTime, and latestDeliveryTime must not precede latestPickupTime.",
+      "properties": {
+        "earliestPickupTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Earliest time the goods may be collected. ISO 8601 with UTC offset, e.g. 2026-07-01T08:00:00+02:00."
+        },
+        "latestPickupTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Latest time the goods may be collected. ISO 8601 with UTC offset, e.g. 2026-07-01T16:00:00+02:00. Must not be earlier than earliestPickupTime."
+        },
+        "earliestDeliveryTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Earliest time the goods may be delivered. ISO 8601 with UTC offset, e.g. 2026-07-02T08:00:00+02:00. Must not be earlier than earliestPickupTime."
+        },
+        "latestDeliveryTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Latest time the goods may be delivered. ISO 8601 with UTC offset, e.g. 2026-07-02T12:00:00+02:00. Must not be earlier than earliestDeliveryTime or latestPickupTime."
+        }
+      }
     },
     "AdditionalService": {
       "type": "object",
@@ -395,6 +424,25 @@
         },
         "dangerousGoodsQuantity": {
           "type": "string"
+        },
+        "tunnelCode": {
+          "type": "string",
+          "description": "ADR tunnel restriction code for the substance."
+        },
+        "dangerousPackagingType": {
+          "type": "string",
+          "enum": ["I", "II", "III"],
+          "description": "ADR packing group, as an uppercase Roman numeral: I, II, III"
+        },
+        "limitedQuantity": {
+          "type": "boolean",
+          "description": "Whether the goods are packed as Limited Quantity. Optional; when omitted the goods are treated as NOT limited quantity. Note that 'default' is documentation only.",
+          "default": false
+        },
+        "environmentPollutant": {
+          "type": "boolean",
+          "description": "Whether the substance is classified as environmentally hazardous / a marine pollutant and must carry the corresponding mark. Optional; when omitted the goods are treated as NOT an environmental pollutant. As with limitedQuantity, the default is documentation only and must be applied by the receiving system.",
+          "default": false
         }
       }
     }

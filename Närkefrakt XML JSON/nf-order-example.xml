@@ -18,8 +18,15 @@
 			<FreeText type="DispatchInstruction">Needs to be delivered by a smaller truck due to gravel road</FreeText>
 			<FreeText>1 pallet to Närkefrakt IT Dept, call for delivery +4619206300</FreeText>
 		</FreeTexts>
+		<Planning>
+			<EarliestPickupTime>2026-07-01T08:00:00+02:00</EarliestPickupTime>
+			<LatestPickupTime>2026-07-01T16:00:00+02:00</LatestPickupTime>
+			<EarliestDeliveryTime>2026-07-02T08:00:00+02:00</EarliestDeliveryTime>
+			<LatestDeliveryTime>2026-07-02T12:00:00+02:00</LatestDeliveryTime>
+		</Planning>
 		<AdditionalServices>
 			<AdditionalService code="TAIL_LIFT"/>
+			<AdditionalService code="ADR_GOODS"/>
 			<AdditionalService code="DELIVERY_NOTIFICATION">
 				<Contact>
 					<Name>User Usersson</Name>
@@ -76,23 +83,41 @@
 				<Length unit="mm">1200</Length>
 				<Width unit="mm">800</Width>
 				<Height unit="cm">67</Height>
-				<PackageNumber/>
-				<DangerousGoods>
-					<SubstanceType/>
-					<WasteCode/>
-					<UNNumber/>
-					<DangerousGoodsClass/>
-					<DangerousGoodsSpecification/>
-					<DangerousGoodsSort/>
-					<DangerousGoodsAmount/>
-					<DangerousGoodsType/>
-					<DangerousGoodsQuantity/>
-				</DangerousGoods>
+				<PackageNumber>00064298302462022244</PackageNumber>
 				<GoodsRequirements type="CargoType">Electronics</GoodsRequirements>
 				<GoodsRequirements type="TemperatureRequirements">
 					<MinimumTemperature>5</MinimumTemperature>
 					<MaximumTemperature>35</MaximumTemperature>
 				</GoodsRequirements>
+			</GoodsRow>
+			<GoodsRow>
+				<GoodsSpecification>Acetone in steel drums</GoodsSpecification>
+				<PackageType>EURO PALLET</PackageType>
+				<Quantity>2</Quantity>
+				<Weight unit="KG">240</Weight>
+				<Volume unit="M3">1.008</Volume>
+				<LoadMeters/>
+				<PalletPlaces/>
+				<Stackable>false</Stackable>
+				<Length unit="mm">1200</Length>
+				<Width unit="mm">800</Width>
+				<Height unit="cm">105</Height>
+				<PackageNumber/>
+				<DangerousGoods>
+					<SubstanceType>Flammable liquid</SubstanceType>
+					<WasteCode/>
+					<UNNumber>UN1090</UNNumber>
+					<DangerousGoodsClass>3</DangerousGoodsClass>
+					<DangerousGoodsSpecification>ACETONE</DangerousGoodsSpecification>
+					<DangerousGoodsSort>II</DangerousGoodsSort>
+					<DangerousGoodsAmount>200 KG</DangerousGoodsAmount>
+					<DangerousGoodsType>Steel drum</DangerousGoodsType>
+					<DangerousGoodsQuantity>4x50L</DangerousGoodsQuantity>
+					<TunnelCode>D/E</TunnelCode>
+					<DangerousPackagingType>II</DangerousPackagingType>
+					<LimitedQuantity>false</LimitedQuantity>
+					<EnvironmentPollutant>false</EnvironmentPollutant>
+				</DangerousGoods>
 			</GoodsRow>
 		</GoodsInformation>
 	</Order>
