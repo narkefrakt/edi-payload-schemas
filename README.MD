@@ -17,7 +17,7 @@ Messages are correlated by the references sent on the order — normally `Consig
 | Tracking Event | Närkefrakt → Integrator | `närkefrakt-status-schema.json` | `nf-status-schema.xml` |
 | Delivery Event | Närkefrakt → Integrator | `närkefrakt-delivery-event-schema.json` | `nf-deliver-schema.xml` |
 
-JSON lives in `Närkefrakt EDI JSON/`, XML in `Närkefrakt XML JSON/`. Every schema has a matching `-example` file describing one consignment end to end — read those first.
+JSON lives in `Närkefrakt EDI JSON/`, XML in `Närkefrakt EDI XML/`. Every schema has a matching `-example` file describing one consignment end to end — read those first.
 
 The JSON schemas are [JSON Schema draft-07](https://json-schema.org/specification-links#draft-7) and can be used directly with any standard validator. The XML files are **annotated skeleton documents, not XSDs** — element names and comments define the contract.
 
