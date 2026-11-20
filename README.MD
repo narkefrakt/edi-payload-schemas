@@ -74,6 +74,32 @@ WAYBILL_LABELING | Utskrift av inrikes fraktsedel och etiketter | Närkefrakt te
 
 Updated pricing and terms & conditions of Närkefrakts addon services can be located here: https://www.narkefrakt.se/produkter-tjanster/fjarr-distribution under "Dokument" (Swedish only)
 
+## Accepted values
+
+### Package types
+Applies to `packageType` (JSON) / `<PackageType>` (XML) on a goods row. Send a value from the first column; the alternatives in the second column are translated to it. Matching ignores case, spacing and punctuation, and treats å/ä as a and ö as o — `HALV-PALL`, `halvpall` and `Halvpall` are the same value. Other values are not supported and can cause the order to be rejected.
+
+| Value | Also accepted |
+|-------|---------------|
+| `Bulk` | `bulkgods`, `loose`, `lös`, `lösgods` |
+| `Bunt` | `buntar`, `bundle`, `bundles`, `bnt` |
+| `Container` | `containers`, `cntr`, `ctr` |
+| `FLM` | `flakmeter`, `flakmetrar`, `loadmeter`, `loadmeters`, `loading metre`, `loading metres`, `lm`, `ldm` |
+| `Halvpall` | `halv pall`, `halvpallar`, `half pallet`, `half pallets`, `hp` |
+| `Häck` | `häckar`, `crate`, `crates`, `cage`, `cages`, `bur`, `burar` |
+| `IBC Behållare` | `ibc`, `ibc container`, `ibc containers`, `ibc tank` |
+| `Kartong` | `kartonger`, `box`, `boxes`, `carton`, `cartons`, `ctn`, `låda`, `lådor` |
+| `KG` | `kilo`, `kilon`, `kilogram`, `kilograms`, `kgm` |
+| `Kolli` | `kollin`, `colli`, `collo`, `colly`, `piece`, `pieces`, `pcs`, `pc` |
+| `Kvartspall` | `kvarts pall`, `quarter pallet`, `quarter pallets`, `qp` |
+| `Lass` | `load`, `loads`, `truckload`, `truckloads` |
+| `Paket` | `package`, `packages`, `packet`, `packets`, `parcel`, `parcels` |
+| `Pall` | `pallar`, `pallet`, `pallets`, `europall`, `euro pall`, `europallet`, `euro pallet`, `eur pallet`, `eurpall`, `helpall`, `hel pall`, `full pallet`, `sepall`, `se pall`, `pll`, `eur`, `other pallet` |
+| `Parti` | `partier`, `batch`, `batches`, `lot`, `lots` |
+| `ST` | `stk`, `styck`, `stycke`, `stycken`, `each`, `ea`, `unit`, `units` |
+| `Storsäck` | `storsäckar`, `big bag`, `big bags`, `bigbag`, `bigbags`, `bulk bag`, `bulk bags`, `fibc` |
+| `Sändning` | `sändningar`, `försändelse`, `shipment`, `shipments`, `consignment`, `consignments` |
+
 ## Contact
 Närkefrakt IT Department — integration support and onboarding.
 
