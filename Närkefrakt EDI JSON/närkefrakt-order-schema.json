@@ -127,17 +127,16 @@
     },
     "AdditionalService": {
       "type": "object",
-      "description": "An additional service requested on the order. 'code' identifies the service from the fixed list below. Some services carry structured detail: 'contact' applies to BOOK_DELIVERY, DELIVERY_NOTIFICATION and DELIVERY_NOTIFICATION_INDIVIDUAL; 'timeSpecification' applies to TIME_SLOT_TRANSPORT. 'value' is an optional free-text fallback for any other detail.",
+      "description": "An additional service requested on the order. 'code' identifies the service from the fixed list below. Some services carry structured detail: 'contact' applies to BOOK_DELIVERY and DELIVERY_NOTIFICATION; 'timeSpecification' applies to TIME_SLOT_TRANSPORT. 'value' is an optional free-text fallback for any other detail.",
       "properties": {
         "code": {
           "type": "string",
-          "description": "Service code identifying the requested service:\n- ADR_GOODS: ADR (Dangerous Goods)\n- BOOK_DELIVERY: Delivery Booking\n- TAIL_LIFT: Tail Lift\n- DELIVERY_NOTIFICATION: Delivery Notification\n- DELIVERY_NOTIFICATION_INDIVIDUAL: Delivery Notification – Individual\n- EARLY_DELIVERY: Delivery Before 12.00\n- LATE_DELIVERY: Delivery After 12.00\n- TIME_SLOT_TRANSPORT: Time-Slot Loading and Unloading\n- PACKAGE_LABELING: Package Labeling\n- WAYBILL_LABELING: Waybill Labeling",
+          "description": "Service code identifying the requested service. What each code means is described under 'Description of addon services' in README.MD.",
           "enum": [
             "ADR_GOODS",
             "BOOK_DELIVERY",
             "TAIL_LIFT",
             "DELIVERY_NOTIFICATION",
-            "DELIVERY_NOTIFICATION_INDIVIDUAL",
             "EARLY_DELIVERY",
             "LATE_DELIVERY",
             "TIME_SLOT_TRANSPORT",
@@ -151,7 +150,7 @@
         },
         "contact": {
           "type": "object",
-          "description": "Contact to use for the service. Applies to BOOK_DELIVERY, DELIVERY_NOTIFICATION and DELIVERY_NOTIFICATION_INDIVIDUAL.",
+          "description": "Contact to use for the service. Applies to BOOK_DELIVERY and DELIVERY_NOTIFICATION.",
           "properties": {
             "name": {
               "type": "string"

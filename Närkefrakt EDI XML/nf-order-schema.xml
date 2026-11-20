@@ -39,18 +39,17 @@
 		<AdditionalServices>
 		<!--The code attribute identifies the requested service from the fixed list of codes below.
 		For most services the element value is optional and can carry extra free-text detail.-->
-		<!--Available service codes:
-		ADR_GOODS                        = ADR (Dangerous Goods)
-		BOOK_DELIVERY                    = Delivery Booking
-		TAIL_LIFT                        = Tail Lift
-		DELIVERY_NOTIFICATION            = Delivery Notification
-		DELIVERY_NOTIFICATION_INDIVIDUAL = Delivery Notification - Individual
-		EARLY_DELIVERY                   = Delivery Before 12.00
-		LATE_DELIVERY                    = Delivery After 12.00
-		TIME_SLOT_TRANSPORT              = Time-Slot Loading and Unloading
-		PACKAGE_LABELING                 = Package Labeling
-		WAYBILL_LABELING                 = Waybill Labeling-->
-		<!--For BOOK_DELIVERY, DELIVERY_NOTIFICATION and DELIVERY_NOTIFICATION_INDIVIDUAL a Contact can be supplied, holding a Name and ContactInformation (same shape as a Stop's contact info).-->
+		<!--Available service codes. What each one means is described under "Description of addon services" in README.MD.
+		ADR_GOODS
+		BOOK_DELIVERY
+		TAIL_LIFT
+		DELIVERY_NOTIFICATION
+		EARLY_DELIVERY
+		LATE_DELIVERY
+		TIME_SLOT_TRANSPORT
+		PACKAGE_LABELING
+		WAYBILL_LABELING-->
+		<!--For BOOK_DELIVERY and DELIVERY_NOTIFICATION a Contact can be supplied, holding a Name and ContactInformation (same shape as a Stop's contact info).-->
 		<!--For TIME_SLOT_TRANSPORT a TimeSpecification can be supplied, holding DeliverAfter and DeliverBefore. Each accepts either a simple time HH:MM (e.g. 12:00) or a full ISO 8601 date-time (e.g. 2026-07-02T08:00:00+02:00).-->
 		<!--AdditionalService tags can be repeated for multiple services-->
 			<AdditionalService code=""/>
